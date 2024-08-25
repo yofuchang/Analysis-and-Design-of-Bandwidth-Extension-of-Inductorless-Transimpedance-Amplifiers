@@ -40,7 +40,12 @@ Vng6 ng6 gnd 0.6v
 ***************************************
 
 
-Iin1 vin1 gnd!  ac=0.02mA 
+
+
+Iin1 vin1 gnd!  ac=0.02mA
+g1 vin1 gnd! cur='v(vin1,gnd!)*0.001'
+g1noise vin1 gnd!
++ noise='4*1.3806266e-23*(TEMPER+273.15)*0.001'
 C1 vin1 gnd 0.25p  
 C2 vin2 gnd 0.25p 
 Xopa1 vin1 vin2 vout1 vout2 opa
@@ -52,17 +57,19 @@ Xopa3 vin1 vin2 vout1 vout2 opa
 RB1 VDD vout1  59.523k
 RB2 VDD vout2  59.523k
 
+
 .dc vout1 0.5u 10u 0.1u
 .dc vout2 0.5u 10u 0.1u
 .dc vout3 0.5u 10u 0.1u
 .probe AC I1(MN1) V(<vin1> <vin2> <vout1> <vout2> ) vdb(vout1) vdb(vout2) vdb(vout3)
 .ac dec 1000 1 10g
+.noise I(ns3) I(ns9) Iin1 1
 .op
 .option post
 
-* Measure average power consumption
+
 .measure TRAN AVG_POWER AVG I(VVDD)*V(VDD) FROM=0 TO=1n
 .measure TRAN TOTAL_POWER INTEG I(VVDD)*V(VDD) FROM=0 TO=1n
+.print ac inoise onoise
 
 .end
-
