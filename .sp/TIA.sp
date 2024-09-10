@@ -51,7 +51,7 @@ RB2 VDD vout2 25k
 
 .ac dec 1000 1 10g
 
-***.noise V(vin1)  Iin1 1000
+.noise V(vin1)  Iin1 1000
 .op
 .option post acout=0
 .MEAS ac gain max vdb(vout1,vin1)
